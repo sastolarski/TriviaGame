@@ -15,7 +15,7 @@ var wrongCounter = 0;
 var unanswered = 0;
 var ding = new Audio();
 var buzz = new Audio();
-var timeCounter = 5;
+var seconds;
 
 var triviaQuestions = [{
         question1 : "Cleopatra lived closer to today than to when the pyramids were built",
@@ -62,6 +62,21 @@ var triviaQuestions = [{
 
 
 $(document).ready(function(){
+
+    $("#startBtn").on("click", function(){
+        $(this).hide();
+        gameReset();
+    });
+
+    function gameReset(){
+        $("#question").empty();
+        $("#answerChoices").empty();
+        correctCounter = 0;
+        wrongCounter = 0;
+        unanswered = 0;
+        //also display new question function
+        //new question function will include timer 
+    };
 
 
     
