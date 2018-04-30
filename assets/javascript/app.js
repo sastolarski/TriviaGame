@@ -16,6 +16,8 @@ var unanswered = 0;
 var ding = new Audio();
 var buzz = new Audio();
 var seconds;
+var correctAnswer;
+var currentQuestion = 0;
 
 
 var triviaQuestions = [{
@@ -66,6 +68,33 @@ var transitionMessages = ["Correct!", "Wrong!", "Let's see how you did!"]
 
 $(document).ready(function(){
 
+    var countdown = {
+        time : 7,
+
+        reset : function(){
+            this.time = 7;
+            $("#timer").hmtl('<h2>' + this.time + ' seconds remaining</h3>');
+        },
+
+        start : function(){
+            counter = setInterval(countdown.count, 1000);
+        },
+
+        stop : function(){
+            clearInterval(counter);
+        },
+
+        count : function(){
+            countdown.time --;
+            if(countdown.time >= 0){
+                $("#timer").html('<h2>' + this.time + ' seconds remaining</h3>');
+            }
+            else{
+                countdown.reset();
+            }
+        }
+    }
+
     $("#startBtn").on("click", function(){
         $(this).hide();
         gameReset();
@@ -95,11 +124,23 @@ $(document).ready(function(){
             answerChoices.text(triviaQuestions[currentQuestion].answers[i]);
             $("#answerChoices").append(answerChoices);
         }
-
+        correctAnswer = triviaQuestions[currentQuestion].answer;
+        console.log(correctAnswer);
     }
 
            // currentQuestion++; put this in the click handler that goes with answer selection and time running out
 
+
+    //selecting an answer choice and have it determine if correct or incorrect
+
+    $("#answerChoices").on('click', function(){
+        currentQuestion++;
+        if(currentQuestion === 0){
+
+        }
+    })
+
+    
 
     
 
