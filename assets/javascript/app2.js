@@ -138,7 +138,10 @@ function timerExpire(){
     //same as above but on the condition of clock hitting 0
 }
    
-
+function gameEnd(){
+    //show final score of right/wrong/unaswered questions
+    //condition that this function runs if current question[] hits 10
+}
 
 
 
