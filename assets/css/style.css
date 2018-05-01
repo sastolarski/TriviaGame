@@ -1,4 +1,37 @@
 .theAnswers {
     margin: 20px;
     font-size: 30px;
+    text-align: center;
 }
+
+h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 72px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+body {
+    background-image: url(images/lightning.jpg);
+}
+
+.container {
+    background-color: aliceblue;
+    
+}
+
+#startBtn {
+    padding: 20px;
+    margin: 40px;
+    
+}
+
+#timer {
+    font-size: 24px;
+    text-align: center;
+}
+
+#question {
+    text-align: center;
+}
+

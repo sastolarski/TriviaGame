@@ -14,7 +14,7 @@ var triviaQuestions = [{
     answers : ["true", "false"],
     answer : "true"
 },{
-    question : "Gwen Stefani is younger than Ted Cruz",
+    question : "The first man in space was Alan Shepard",
     answers : ["true", "false"],
     answer : "false"
 },{
@@ -38,9 +38,9 @@ var triviaQuestions = [{
     answers : ["true", "false"],
     answer : "true"
 },{
-    question : "Sir Christoper Lee witnessed the last public execution in France",
+    question : "The guillotine was used in France until 1960",
     answers : ["true", "false"],
-    answer : "true"
+    answer : "false"
 },{
     question : "The human body consists of (roughly) a 2-to-1 ratio fo bacterial to human cells",
     answers : ["true", "false"],
@@ -58,32 +58,28 @@ $(document).ready(function(){
 
     //timer functions
 var timer = {
-    time : 7,
+    time : 5,
 
     reset : function() {
-        timer.time = 7;
+        clearInterval(intervalId);
+        timer.time = 5;
         $("#timer").text(timer.time);
+        timer.start();
     },
 
     start : function() {
-       
+       clearInterval(intervalId);
         intervalId = setInterval(timer.countdown, 1000);
     },
 
     stop : function() {
-        
         clearInterval(intervalId);
     },
 
     countdown : function() {
         timer.time--;
         $("#timer").text(timer.time);
-        if(timer.time <= 0){
-            clearInterval(intervalId);
-            timer.time = 7;
-            currentQuestion++;
-            newQuestion();
-        }
+        
     }
 };
 
@@ -96,6 +92,9 @@ $("#startBtn").on("click", function(){
 //timer works, next thing needed is a function to make the questions appear on screen.
 
 function newQuestion(){
+    if(currentQuestion < 10){
+    $("#timer").show();
+    timer.time = 5;
     timer.start();
     $("#question").empty();
     $("#answerChoices").empty();
@@ -107,17 +106,31 @@ function newQuestion(){
         $("#answerChoices").append(answerChoices);
 
     }
-   
-}
+    } else {
+        console.log("ok getting somewhere");
+        $("#timer").hide();
+        $("#question").empty();
+        $("#answerChoices").empty();
+        $("#question").html("<h2>Total correct answers: " + correctCounter + "</h2>");
+        $("#answerChoices").html("<h2>Total incorrect answers: " + wrongCounter + "</h2>");
+        reset();
+        
+
+    }
+};
+
+
 
 //need function to determine which answer is correct and for something to happen when you click
 $("body").on('click', ".theAnswers", function(event){
-    selectedAnswer = $(this).text();
-    if(selectedAnswer === triviaQuestions[currentQuestion].answer){
+    selectedAnswer = $(this).text(); 
+    if((selectedAnswer === triviaQuestions[currentQuestion].answer) && (currentQuestion < 10)){
         console.log("correct");
-
-    } else {
+        correctAnswer();
+    } 
+    else if((selectedAnswer != triviaQuestions[currentQuestion].answer) && (currentQuestion < 10)) {
         console.log("no");
+        wrongAnswer();
     }
 
 });
@@ -126,25 +139,46 @@ function correctAnswer(){
     //add to correct counter
     //current question ++
     //go to next question and restart timer
+    correctCounter++;
+    currentQuestion++;
+    newQuestion();
+    timer.reset();
+
 }
 
 function wrongAnswer(){
     //add to wrong counter
     //current question ++
     //got o next question and restart timer
+    wrongCounter++;
+    currentQuestion++;
+    newQuestion();
+    timer.reset();
 }
 
 function timerExpire(){
-    //same as above but on the condition of clock hitting 0
+    unanswered++;
+    currentQuestion++;
+    newQuestion();
+    timer.reset();
+    
 }
    
-function gameEnd(){
+function reset(){
     //show final score of right/wrong/unaswered questions
     //condition that this function runs if current question[] hits 10
+    resetBtn = $("<button>");
+    resetBtn.text("Try Again");
+    $("#restartBtn").append(resetBtn);
+    $("#restartBtn").on("click", function(){
+        currentQuestion = 0;
+        correctCounter = 0;
+        wrongCounter = 0;
+        unanswered = 0;
+        $("#restartBtn").hide();
+        newQuestion();
+    })
 }
-
-
-
 
 
 
