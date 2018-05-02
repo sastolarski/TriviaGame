@@ -104,8 +104,8 @@ function newQuestion(){
         answerChoices.text(triviaQuestions[currentQuestion].answers[i]);
         
         $("#answerChoices").append(answerChoices);
-
-    }
+        }
+        
     } else {
         console.log("ok getting somewhere");
         timer.stop();
