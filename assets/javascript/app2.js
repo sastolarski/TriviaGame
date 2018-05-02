@@ -22,9 +22,9 @@ var triviaQuestions = [{
     answers : ["true", "false"],
     answer : "true"
 },{
-    question : "Anne Frank and Martin Luther King Jr. were born in different years",
+    question : "Anne Frank and Martin Luther King Jr. were born in the same year",
     answers : ["true", "false"],
-    answer : "false"
+    answer : "true"
 },{
     question : "A pineapple takes a year to grow to maturity",
     answers : ["true", "false"],
@@ -42,7 +42,7 @@ var triviaQuestions = [{
     answers : ["true", "false"],
     answer : "false"
 },{
-    question : "The human body consists of (roughly) a 2-to-1 ratio fo bacterial to human cells",
+    question : "The Azetc Empire is older than Oxford University",
     answers : ["true", "false"],
     answer : "false"
 },{
@@ -108,6 +108,7 @@ function newQuestion(){
     }
     } else {
         console.log("ok getting somewhere");
+        timer.stop();
         $("#timer").hide();
         $("#question").empty();
         $("#answerChoices").empty();
