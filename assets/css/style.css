@@ -39,3 +39,10 @@ body {
     font-weight: bolder;
 }
 
+#unanswered {
+    text-align: center;
+}
+
+i {
+    color: yellow;
+}

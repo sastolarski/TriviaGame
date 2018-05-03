@@ -74,11 +74,18 @@ var timer = {
 
     stop : function() {
         clearInterval(intervalId);
+        intervalId = setInterval(timer.countdown, 0000);
     },
 
     countdown : function() {
         timer.time--;
         $("#timer").text(timer.time);
+        if((timer.time == 0) && (currentQuestion < 10)){     
+            timerExpire();
+        }
+        else{
+            return;
+        }
         
     }
 };
@@ -93,30 +100,23 @@ $("#startBtn").on("click", function(){
 
 function newQuestion(){
     if(currentQuestion < 10){
-    $("#timer").show();
-    timer.time = 5;
-    timer.start();
-    $("#question").empty();
-    $("#answerChoices").empty();
-    $("#question").html("<h2>" + triviaQuestions[currentQuestion].question + "</h2>");
-    for(var i = 0; i < 2; i++){
-        answerChoices = $("<div>").addClass("theAnswers");
-        answerChoices.text(triviaQuestions[currentQuestion].answers[i]);
-        
-        $("#answerChoices").append(answerChoices);
-        }
-        
-    } else {
-        console.log("ok getting somewhere");
-        timer.stop();
-        $("#timer").hide();
+        $("#timer").show();
+        timer.time = 5;
+        timer.start();
         $("#question").empty();
         $("#answerChoices").empty();
-        $("#question").html("<h2>Total correct answers: " + correctCounter + "</h2>");
-        $("#answerChoices").html("<h2>Total incorrect answers: " + wrongCounter + "</h2>");
-        reset();
-        
+        $("#question").html("<h2>" + triviaQuestions[currentQuestion].question + "</h2>");
+        for(var i = 0; i < 2; i++){
+            answerChoices = $("<div>").addClass("theAnswers");
+            answerChoices.text(triviaQuestions[currentQuestion].answers[i]);  
+            $("#answerChoices").append(answerChoices);
 
+        }
+        
+    } 
+    else 
+    {   
+        reset();
     }
 };
 
@@ -168,6 +168,14 @@ function timerExpire(){
 function reset(){
     //show final score of right/wrong/unaswered questions
     //condition that this function runs if current question[] hits 10
+    console.log("why does the timer keep running");
+    timer.stop();
+    $("#timer").hide();
+    $("#question").empty();
+    $("#answerChoices").empty();
+    $("#question").html("<h2>Total correct answers: " + correctCounter + "</h2>");
+    $("#answerChoices").html("<h2>Total incorrect answers: " + wrongCounter + "</h2>");
+    $("#unanswered").html("<h2>You didn't answer: " + unanswered + "</h2>");
     resetBtn = $("<button>");
     resetBtn.text("Try Again");
     $("#restartBtn").append(resetBtn);
