@@ -100,8 +100,9 @@ $("#startBtn").on("click", function(){
 
 function newQuestion(){
     if(currentQuestion < 10){
-        $("#timer").show();
+        $("#unanswered").empty();
         timer.time = 5;
+        $("#timer").show();
         timer.start();
         $("#question").empty();
         $("#answerChoices").empty();
@@ -170,13 +171,15 @@ function reset(){
     //condition that this function runs if current question[] hits 10
     console.log("why does the timer keep running");
     timer.stop();
+    $("#restartBtn").empty();
+    $("#restartBtn").show();
     $("#timer").hide();
     $("#question").empty();
     $("#answerChoices").empty();
     $("#question").html("<h2>Total correct answers: " + correctCounter + "</h2>");
     $("#answerChoices").html("<h2>Total incorrect answers: " + wrongCounter + "</h2>");
     $("#unanswered").html("<h2>You didn't answer: " + unanswered + "</h2>");
-    resetBtn = $("<button>");
+    resetBtn = $("<button>").addClass("btn btn-primary");
     resetBtn.text("Try Again");
     $("#restartBtn").append(resetBtn);
     $("#restartBtn").on("click", function(){
